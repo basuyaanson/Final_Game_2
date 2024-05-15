@@ -139,18 +139,41 @@ namespace WinFormsApp2
                if (EnemyList[i].GetRectangle().IntersectsWith(Hero.GetRectangle()))
                  {
                         Hero.HP -= EnemyList[i].Damage;//命中扣血
-                        Hero.IsDead();//檢測生命值
-                        SingleObject.GetSingle().RemoveGameObject(EnemyList[i]);//刪除敵人
-                        break;
+                      
+                    bool gameover =  Hero.GameOver();//檢測生命值
+                    if (gameover==true)
+                    {
+                      
+                    }
+                    SingleObject.GetSingle().RemoveGameObject(EnemyList[i]);//刪除敵人
+                    break;
                  }
                 //與 玩家子彈碰撞
                 for (int j = 0; j < HeroBulletList.Count; j++)
                 {
                     if (EnemyList[i].GetRectangle().IntersectsWith(HeroBulletList[j].GetRectangle()))//如果子彈的矩形與目標相交
                     {
-                        EnemyList[i].HP -= Hero.Damage;//命中扣血
+                        EnemyList[i].HP -= Hero.Damage;
+                        double Dx = Hero.x - EnemyList[i]. x;
+                        double Dy = Hero.y - EnemyList[i]. y;
+
+                        /*// 計算帶有方向的向量*/
+                        double length = Math.Sqrt(Dx * Dx + Dy * Dy);
+                        double UnitX = Dx / length;
+                        double UnitY = Dy / length;
+                        EnemyList[i].x -= (int)(15 * UnitX);
+                        EnemyList[i].y -= (int)(15* UnitY);
+
+                        if (Hero.Wp is WP_Boom)
+                        {
+                          
+                        }
+                        else
+                        {
+                            SingleObject.GetSingle().RemoveGameObject(HeroBulletList[j]);//刪除子彈
+                        }
                         EnemyList[i].IsDead();//檢測生命值
-                        SingleObject.GetSingle().RemoveGameObject(HeroBulletList[j]);//刪除子彈
+                       
                         break;
                     }
                 }

@@ -13,11 +13,13 @@ namespace WinFormsApp2
     {
         // public static Image Img;
         public Image Img;
+        public int wave {  get; set; }
         //建構子 座標,攻擊目標，等級，圖片
-        public EnemyFather(int x, int y, GameObject Target,Image img) : base(x, y, img.Width, img.Height)
+        public EnemyFather(int x, int y, GameObject Target,Image img,int Wave) : base(x, y, img.Width, img.Height)
         {
             this.Img = img;
             this.Target = Target;
+            this.wave = Wave;
         }
 
         //攻擊目標
@@ -26,6 +28,7 @@ namespace WinFormsApp2
             get; set;
         }
       
+        //獲取敵人編號
         public virtual void GetEnemyNumber(int Number)
         {
           
@@ -47,7 +50,7 @@ namespace WinFormsApp2
     class EnemyNormal : EnemyFather
     {
         //建構子 座標,攻擊目標，等級，攻擊目標，敵人編號
-        public EnemyNormal(int x, int y, GameObject Target,int Number) : base(x, y, Target, GetImageNumber(Number))
+        public EnemyNormal(int x, int y, GameObject Target,int Number,int wave) : base(x, y, Target, GetImageNumber(Number),wave)
         {
             this.Number = Number;
             this.Target = Target;
@@ -61,9 +64,9 @@ namespace WinFormsApp2
             {
                 //普通敵人
                 case 0:
-                    this.HP = 80;
+                    this.HP = 80 * wave;
                     this.Speed = 3;
-                    this.Damage = 30;
+                    this.Damage = 10;
                     this.Score = 1;
                     break;
             
@@ -76,11 +79,10 @@ namespace WinFormsApp2
             switch (ImgNumber)
             {
                 case 0:
-                    return Asset.em1;
+                    return Asset.E_N_Zako;
             }
             return null;
         }
-
 
         //-----------------複寫
         //繪製事件
@@ -117,7 +119,7 @@ namespace WinFormsApp2
     {
 
         //建構子 座標,攻擊目標，等級，攻擊目標，敵人編號
-        public EnemySpecial (int x, int y, GameObject Target, int Number) : base(x, y, Target, GetImageNumber(Number))
+        public EnemySpecial (int x, int y, GameObject Target, int Number, int wave) : base(x, y, Target, GetImageNumber(Number), wave)
         {
             this.Number = Number;
             this.Target = Target;
@@ -131,14 +133,14 @@ namespace WinFormsApp2
             {
                 //跑者
                 case 0:
-                    this.HP = 80;
+                    this.HP = 80 * wave;
                     this.Speed = 5;
                     this.Damage = 30;
-                    this.Score = 10;
+                    this.Score = 3;
                     break;
                 //坦克
                 case 1:
-                    this.HP = 80;
+                    this.HP = 150 * wave;
                     this.Speed = 1.5;
                     this.Damage = 30;
                     this.Score = 3;
@@ -152,8 +154,9 @@ namespace WinFormsApp2
             switch (ImgNumber)
             {
                 case 0:
+                    return Asset.E_S_Runner;
                 case 1:
-                    return Asset.em2;
+                    return Asset.E_S_Tank;
             }
             return null;
         }
@@ -193,7 +196,7 @@ namespace WinFormsApp2
     {
 
         //建構子 座標,攻擊目標，等級，攻擊目標，敵人編號
-        public EnemyBoss(int x, int y, GameObject Target, int Number) : base(x, y, Target, GetImageNumber(Number))
+        public EnemyBoss(int x, int y, GameObject Target, int Number, int wave) : base(x, y, Target, GetImageNumber(Number), wave)
         {
             this.Number = Number;
             this.Target = Target;
@@ -207,9 +210,9 @@ namespace WinFormsApp2
             {
                 
                 case 0:
-                    this.HP = 200;
+                    this.HP = 500 * wave;
                     this.Speed = 1.5;
-                    this.Damage = 30;
+                    this.Damage = 80;
                     this.Score = 10;
                     break;
             }
@@ -222,7 +225,7 @@ namespace WinFormsApp2
             switch (ImgNumber)
             {
                 case 0:
-                    return Asset.hero;
+                    return Asset.E_B_Tank;
             }
             return null;
         }

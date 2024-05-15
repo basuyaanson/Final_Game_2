@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WinFormsApp2
 {
     enum WeaponType
     {
-        手槍, 步槍
+        手槍, 步槍, 衝鋒槍, 能量槍
     }
 
     //武器父類
@@ -84,7 +85,7 @@ namespace WinFormsApp2
             //名稱
             WPName = WeaponType.手槍;
             //武器數值
-            this.Damage = 17;//傷害
+            this.Damage = 65;//傷害
             this.ShotSpeed = 500;//射速
             this.Speed = 50;//子彈移動速度
             this.MoveSpeed = 4;//玩家持移速加成
@@ -137,7 +138,7 @@ namespace WinFormsApp2
             WPName = WeaponType.步槍;
             //武器數值
             this.Damage = 31;//傷害
-            this.ShotSpeed = 400;//射速
+            this.ShotSpeed = 300;//射速
             this.Speed = 50;//子彈移動速度
             this.MoveSpeed = 3;//玩家持有移速加成
         }
@@ -170,6 +171,168 @@ namespace WinFormsApp2
             this.y += (int)(this.Speed * this.unitY);
         }
 
-    }
+    }   
 
+    class WP_SMG : WeaponFater
+    {
+           
+        //圖片
+           
+        private static Image img = Asset.bullet1;
+ 
+        //目標座標 發射座標 子彈移動速度
+        public WP_SMG(int TargetX, int TargetY, int x, int y) : base(x, y, img)  
+        {
+               this.TargetX = TargetX;
+               this.TargetY = TargetY;
+               GetInfo();
+        }
+
+          
+        public override void GetInfo()
+        {
+               //名稱
+               WPName = WeaponType.衝鋒槍;
+               //武器數值
+               this.Damage = 18;//傷害
+               this.ShotSpeed = 150;//射速
+               this.Speed = 50;//子彈移動速度
+               this.MoveSpeed = 3;//玩家持有移速加成
+          
+        }
+
+
+           //------------------------
+           public override void Draw(Graphics g)
+           {
+               Move();
+               g.DrawImage(img, this.x, this.y);
+           }
+
+           //子彈移動
+           public override void Move()
+           {
+               //計算向量
+               if (Time == 0)
+               {
+                   int dx = this.TargetX - this.x;
+                   int dy = this.TargetY - this.y;
+                   double length = Math.Sqrt(dx * dx + dy * dy);
+
+                   this.unitX = dx / length;
+                   this.unitY = dy / length;
+                   this.Time = 1;
+               }
+
+               // 更新敌人的位置
+               this.x += (int)(this.Speed * this.unitX);
+               this.y += (int)(this.Speed * this.unitY);
+           }
+
+       }
+
+    class WP_Boom : WeaponFater
+       {
+           //圖片
+           private static Image img = Asset.Boom;
+           public Thread thread ;
+        //目標座標 發射座標 子彈移動速度
+        public WP_Boom(int TargetX, int TargetY, int x, int y) : base(x, y, img)
+           {
+               this.TargetX = TargetX;
+               this.TargetY = TargetY;
+               GetInfo();
+           }
+
+           public override void GetInfo()
+           {
+               //名稱
+               WPName = WeaponType.能量槍;
+               //武器數值
+               this.Damage = 150;//傷害
+               this.ShotSpeed = 1000;//射速
+               this.Speed = 20;//子彈移動速度
+               this.MoveSpeed = 2;//玩家持有移速加成
+           }
+            
+        public void CountDown()
+        {
+            Thread.Sleep(2000);
+            SingleObject.GetSingle().RemoveGameObject(this);
+            thread.Join();
+        }
+
+
+           //------------------------
+           public override void Draw(Graphics g)
+           {
+               Move();
+               g.DrawImage(img, this.x, this.y);
+           }
+
+           //子彈移動
+           public override void Move()
+           {
+               // 更新敌人的位置
+               this.x = this.TargetX;
+               this.y = this.TargetY;
+                thread = new Thread(CountDown);
+                thread.Start();
+        }
+            
+       }
+
+    class WP_grenade : WeaponFater
+    {
+        //圖片
+        private static Image img = Asset.bullet2;
+
+        //目標座標 發射座標 子彈移動速度
+        public WP_grenade(int TargetX, int TargetY, int x, int y) : base(x, y, img)
+        {
+            this.TargetX = TargetX;
+            this.TargetY = TargetY;
+            GetInfo();
+        }
+
+        public override void GetInfo()
+        {
+            //名稱
+            WPName = WeaponType.能量槍;
+            //武器數值
+            this.Damage = 150;//傷害
+            this.ShotSpeed = 1000;//射速
+            this.Speed = 20;//子彈移動速度
+            this.MoveSpeed = 2;//玩家持有移速加成
+        }
+
+
+        //------------------------
+        public override void Draw(Graphics g)
+        {
+            Move();
+            g.DrawImage(img, this.x, this.y);
+        }
+
+        //子彈移動
+        public override void Move()
+        {
+            //計算向量
+            if (Time == 0)
+            {
+                int dx = this.TargetX - this.x;
+                int dy = this.TargetY - this.y;
+                double length = Math.Sqrt(dx * dx + dy * dy);
+
+                this.unitX = dx / length;
+                this.unitY = dy / length;
+                this.Time = 1;
+            }
+
+            // 更新敌人的位置
+            this.x += (int)(this.Speed * this.unitX);
+            this.y += (int)(this.Speed * this.unitY);
+        }
+
+    }
 }

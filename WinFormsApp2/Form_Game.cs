@@ -5,13 +5,6 @@ namespace WinFormsApp2
 {
     public partial class Form_Game : Form
     {
-        /*//顯示主控台(測試用)*/
-        [System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
-        //[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        static extern bool AllocConsole();
-        [System.Runtime.InteropServices.DllImport("Kernel32")]
-        public static extern void FreeConsole();
-
         List<Button> ListButton = new List<Button>();
         public int HeroNumber
         { get; set; }
@@ -19,14 +12,12 @@ namespace WinFormsApp2
         { get; set; }
         public int WaveCount
         { get; set; }
+        public bool UseSkill;
 
         public Form_Game()
         {
-        
             SingleObject.GetSingle().AddGameObject(new Background(0, 0));
             InitializeComponent();
-            //AllocConsole();
-            // AddControl(P_Select, false);
             StartGame = false;
             SelectHero();
             InitialGame();
@@ -56,6 +47,7 @@ namespace WinFormsApp2
             P_Meun.Hide();
             //計時器
             TimeCount = 1;
+            WaveCount = 1;
             //
             CnaFire = true;
             //準心
@@ -208,8 +200,9 @@ namespace WinFormsApp2
         private void Time_Tick_Tick(object sender, EventArgs e)
         {
             //生成敵人
-            if (TimeCount % 5 == 0)
+            if (TimeCount % 6 == 0)
             {
+                
                 EnemyWave(0);
             }
             if (TimeCount % 15 == 0 || TimeCount % 25 == 0)
@@ -253,61 +246,41 @@ namespace WinFormsApp2
             L_PlayerInfo.Text =
                 "移動速度:" + SingleObject.GetSingle().Hero.Speed + " ( " + SingleObject.GetSingle().Hero.HeroSpeed + " + " + SingleObject.GetSingle().Hero.Wp.MoveSpeed + ")" +
                 "\n射速:" + SingleObject.GetSingle().Hero.ShotSpeed +
-                "\n傷害:" + SingleObject.GetSingle().Hero.Damage + " (" + SingleObject.GetSingle().Hero.Wp.Damage + " * " + SingleObject.GetSingle().Hero.HeroDamage + ")" +
+                "\n傷害:" + SingleObject.GetSingle().Hero.Damage + " (" + SingleObject.GetSingle().Hero.Wp.Damage + " + " + SingleObject.GetSingle().Hero.HeroDamage + ")" +
                 "\n武器種類:" + SingleObject.GetSingle().Hero.Wp.WPName.ToString();
             ;
             L_HP.Text = "血量 : " + SingleObject.GetSingle().Hero.HP.ToString();
             L_Score.Text = "分數 : " + SingleObject.GetSingle().Hero.Score.ToString();
             L_WaveCount.Text = "波次 : " + WaveCount;
             L_LV.Text = "LV : " + SingleObject.GetSingle().Hero.Level.ToString();
-
-        }
-
-        public void AddControl(Control c, bool remove)
-        {
-            Button btn = new Button();
-            btn.Text = "開始遊戲";
-            btn.Name = "btn";
-            btn.Size = new Size(100, 30);
-            btn.Location = new Point(0, 30);
-            //btn.TabIndex = 0;
-            c.Controls.Add(btn);
-            ListButton.Add(btn);
-            //btn.Click += button1_Click_1;
-
-            /*if (remove == true)
+            if (SingleObject.GetSingle().Hero.HP <= 0)
             {
-                for (int i = 0; i < 30; i++)
-                {
-                    Button btn = new Button();
-                    btn.Text = i.ToString();
-                    btn.Name = i.ToString();
-                    btn.Size = new Size(100, 30);
-                    btn.Location = new Point(0, i * 30);
-                    c.Controls.Remove(btn);
-                }
+                GameOver();
             }
-            else
-            {
-                for (int i = 0; i < 30; i++)
-                {
-                }
-            }*/
-
-
         }
 
         //選擇英雄
         public void SelectHero()
         {
-            for (int i = 0; i < Enum.GetNames(typeof(HeroName)).Count(); i++)
+            for (int i = 0; i < Enum.GetNames(typeof(Heroinfo.HeroName)).Count(); i++)
             {
                 Button btn = new Button();
-                btn.Font = new Font("Microsoft Tai Le", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-                btn.Location = new Point(408 + i * 200, 208);
+              
+                btn.Size = new Size(200, 500);
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.BackColor = Color.FromArgb(100,240,250,250);
+                btn.Font = new Font("Microsoft Tai Le", 15F, FontStyle.Regular, GraphicsUnit.Point);
+                btn.Location = new Point(this.Width / 6 + i * 210, this.Height / 4);
                 btn.Name = "btn" + i;
-                btn.Size = new Size(198, 472);
-                btn.Text = "選擇英雄 :\n" + Enum.GetName(typeof(HeroName), i);
+                btn.Text = "選擇英雄 :\n" + Enum.GetName(typeof(Heroinfo.HeroName), i)+
+                    "\n"+ Heroinfo.info[i];
+                btn.TextAlign = ContentAlignment.BottomLeft;
+
+                btn.Image = Heroinfo.H_Img[i];
+               
+                btn.ImageAlign = ContentAlignment.TopCenter;
+
+              
                 btn.Click += Hero_Selcet_Click;
                 this.Controls.Add(btn);
                 ListButton.Add(btn);
@@ -324,7 +297,7 @@ namespace WinFormsApp2
 
                 Button btn = new Button();
                 btn.Font = new Font("Microsoft Tai Le", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-                btn.Location = new Point(408 + i * 200, 208);
+                btn.Location = new Point(this.Width / 4 + i * 200, this.Height / 4);
                 btn.Name = buff[0];
                 btn.Size = new Size(198, 472);
                 btn.Text = "選擇Buff :\n" + buff[1];
@@ -339,17 +312,71 @@ namespace WinFormsApp2
         //暫停遊戲
         public void TimeStop(bool Stop)
         {
+            SoundObject.S_Click.Play();
             if (Stop == true)
             {
+                L_Stop.Text = "遊戲暫停中";
+                L_Tip.Text = "按下空白鍵繼續";
                 Game_Tick.Stop();
                 Time_Tick.Stop();
+                Fire_Tick.Stop();
             }
             else
             {
+                L_Stop.Text = "";
+                L_Tip.Text = "";
                 Game_Tick.Start();
                 Time_Tick.Start();
             }
 
+        }
+
+        public void GameOver()
+        {
+            P_Meun.Show();
+            TimeStop(true);
+            PlayerInput.IsSpace = false;
+            Console.WriteLine("開始");
+            DateTime now = DateTime.Now;
+            string customFormat = now.ToString("yyyy-MM-dd HH:mm:ss");
+            L_Stop.Text = "遊戲結束";
+            L_Tip.Text = "玩家名稱 : " + GetLogininfo.UserName +
+                "\n成績 : " + SingleObject.GetSingle().Hero.Score +
+                "\n達成時間 : " + customFormat +
+                "\n波次 : " + this.WaveCount +
+                "\n玩家等級" + SingleObject.GetSingle().Hero.Level +
+                "\n使用機甲" + Enum.GetName(typeof(Heroinfo.HeroName), SingleObject.GetSingle().Hero.WeaponNumber+1); 
+                ;
+       
+            GetLogininfo.AddScoer(GetLogininfo.UserName,
+                SingleObject.GetSingle().Hero.Score,
+                customFormat,
+                this.WaveCount,
+                SingleObject.GetSingle().Hero.Level,
+                SingleObject.GetSingle().Hero.WeaponNumber
+                );
+            
+        }
+
+        //遊戲結束
+        public void BackToMenu()
+        {
+            int k = SingleObject.GetSingle().EnemyList.Count;
+            while (k != 0)
+            {
+                SingleObject.GetSingle().RemoveGameObject(SingleObject.GetSingle().EnemyList[k - 1]);
+                k--;
+            }
+            k = SingleObject.GetSingle().BackG.Count();
+            while (k != 0)
+            {
+                SingleObject.GetSingle().RemoveGameObject(SingleObject.GetSingle().BackG[k - 1]);
+                k--;
+            }
+            F_Menu.getbg();
+            F_Menu.P_Game.Hide();
+
+            this.Close();
         }
 
         //獲得敵人隨機位置
@@ -401,7 +428,7 @@ namespace WinFormsApp2
                     {
                         RandomXY = GetRandom();
                         SingleObject.GetSingle().AddGameObject(new EnemyNormal(RandomXY[0], RandomXY[1],
-                            SingleObject.GetSingle().Hero, r.Next(0, 1)));
+                            SingleObject.GetSingle().Hero, r.Next(0, 1), WaveCount));
                     }
 
                     break;
@@ -411,7 +438,7 @@ namespace WinFormsApp2
                     {
                         RandomXY = GetRandom();
                         SingleObject.GetSingle().AddGameObject(new EnemySpecial(RandomXY[0], RandomXY[1],
-                            SingleObject.GetSingle().Hero, r.Next(0, 2)));
+                            SingleObject.GetSingle().Hero, r.Next(0, 2), WaveCount));
                     }
                     break;
                 //首領
@@ -420,16 +447,17 @@ namespace WinFormsApp2
                     {
                         RandomXY = GetRandom();
                         SingleObject.GetSingle().AddGameObject(new EnemyBoss(RandomXY[0], RandomXY[1],
-                          SingleObject.GetSingle().Hero, r.Next(0, 1)));
+                          SingleObject.GetSingle().Hero, r.Next(0, 1), WaveCount));
                     }
                     break;
             }
 
         }
+
         //檢測升級
         public void Cheaklevelup()
         {
-            if (SingleObject.GetSingle().Hero.Score > 50 * SingleObject.GetSingle().Hero.Level)
+            if (SingleObject.GetSingle().Hero.Score > 10 * SingleObject.GetSingle().Hero.Level)
             {
                 SelectBuff();
             }
@@ -444,7 +472,7 @@ namespace WinFormsApp2
 
             Console.WriteLine(button.Name);
             SingleObject.GetSingle().Hero.SelcetBuff(button.Name);
-            SingleObject.GetSingle().Hero.GetHeroInfo();
+
             SingleObject.GetSingle().Hero.SetWeaponInfo(SingleObject.GetSingle().Hero.WeaponNumber);
             TimeStop(false);
 
@@ -461,23 +489,39 @@ namespace WinFormsApp2
         //確定選擇英雄
         private void Hero_Selcet_Click(object sender, EventArgs e)
         {
-          
+           
             Button button = sender as Button;
             StartGame = true;//開始遊戲
             //判斷選擇角色
             if (button.Name == "btn0")
             {
-                SingleObject.GetSingle().AddGameObject(new HeroNormal(1600 / 2, 900 / 2, 0));//新增玩家
+                SingleObject.GetSingle().AddGameObject(new HeroNormal(1600 / 2, 900 / 2, 1));//新增玩家
             }
             else if (button.Name == "btn1")
             {
-                SingleObject.GetSingle().AddGameObject(new HeroGunSlinger(1600 / 2, 900 / 2, 1));//新增玩家
+                SingleObject.GetSingle().AddGameObject(new HeroGunSlinger(1600 / 2, 900 / 2, 0));//新增玩家
+            }
+            else if (button.Name == "btn2")
+            {
+                SingleObject.GetSingle().AddGameObject(new HeroQuick(1600 / 2, 900 / 2, 0));//新增玩家
+            }
+            else if (button.Name == "btn3")
+            {
+                SingleObject.GetSingle().AddGameObject(new HeroTimeStop(1600 / 2, 900 / 2, 2));//新增玩家
+            }
+            else if (button.Name == "btn4")
+            {
+                SingleObject.GetSingle().AddGameObject(new HeroSniper(1600 / 2, 900 / 2, 0));//新增玩家
+            }
+            else if (button.Name == "btn5")
+            {
+                SingleObject.GetSingle().AddGameObject(new HeroShocked(1600 / 2, 900 / 2, 4));//新增玩家
             }
 
             Fire_Tick.Interval = (int)SingleObject.GetSingle().Hero.ShotSpeed;//射速
             TimeStop(false);
             //刪除按鈕
-            int k = Enum.GetNames(typeof(HeroName)).Count();
+            int k = Enum.GetNames(typeof(Heroinfo.HeroName)).Count();
             while (k != 0)
             {
                 this.Controls.Remove(ListButton[k - 1]);
@@ -485,32 +529,16 @@ namespace WinFormsApp2
                 k--;
             }
             UpdataInfo();
+           
         }
 
         //回到主頁
         private void B_Back_Click(object sender, EventArgs e)
         {
-
-            int k = SingleObject.GetSingle().EnemyList.Count;
-          
-            while (k != 0)
-            {
-                SingleObject.GetSingle().RemoveGameObject(SingleObject.GetSingle().EnemyList[k - 1]);
-                k--;
-            }
-            k = SingleObject.GetSingle().BackG.Count();
-            while (k != 0)
-            {
-                SingleObject.GetSingle().RemoveGameObject(SingleObject.GetSingle().BackG[k-1]);
-                k--;
-            }
-            F_Menu.getbg();
-            F_Menu.P_Game.Hide(); ;
-
-            //  F_Menu.SetBackGackgroud();
-            this.Close();
-            //SingleObject.GetSingle().
+            BackToMenu();
         }
+
+      
 
         //---------------窗口事件
 

@@ -31,31 +31,34 @@
             L_Title = new Label();
             B_Start = new Button();
             P_Game = new Panel();
-            label1 = new Label();
             B_About = new Button();
             B_Quit = new Button();
             P_Main = new Panel();
             P_About = new Panel();
-            label3 = new Label();
+            Lb_About = new ListBox();
+            panel2 = new Panel();
             P_Score = new Panel();
-            panel1 = new Panel();
+            L_score_hero = new Label();
+            PB_hero = new PictureBox();
+            Lb_Score = new ListBox();
             label2 = new Label();
-            L_Score = new Button();
+            B_Score = new Button();
             P_Main.SuspendLayout();
             P_About.SuspendLayout();
             P_Score.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_hero).BeginInit();
             SuspendLayout();
             // 
             // L_Title
             // 
             L_Title.AutoSize = true;
             L_Title.BackColor = Color.Transparent;
-            L_Title.Font = new Font("Microsoft JhengHei UI", 50F);
-            L_Title.Location = new Point(132, 107);
+            L_Title.Font = new Font("Yet R", 50.25F, FontStyle.Regular, GraphicsUnit.Point, 129);
+            L_Title.Location = new Point(60, 123);
             L_Title.Name = "L_Title";
-            L_Title.Size = new Size(171, 85);
+            L_Title.Size = new Size(298, 71);
             L_Title.TabIndex = 0;
-            L_Title.Text = "標題";
+            L_Title.Text = "火星生存";
             // 
             // B_Start
             // 
@@ -77,16 +80,6 @@
             P_Game.Size = new Size(158, 65);
             P_Game.TabIndex = 2;
             P_Game.Visible = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(17, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(67, 15);
-            label1.TabIndex = 0;
-            label1.Text = "這是計分板";
-            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // B_About
             // 
@@ -115,8 +108,8 @@
             // P_Main
             // 
             P_Main.Controls.Add(P_About);
+            P_Main.Controls.Add(panel2);
             P_Main.Controls.Add(P_Score);
-            P_Main.Controls.Add(panel1);
             P_Main.Location = new Point(427, 58);
             P_Main.Name = "P_Main";
             P_Main.Size = new Size(1098, 730);
@@ -125,39 +118,78 @@
             // 
             // P_About
             // 
-            P_About.Controls.Add(label3);
-            P_About.Location = new Point(490, 88);
+            P_About.BackColor = Color.Transparent;
+            P_About.Controls.Add(Lb_About);
+            P_About.Location = new Point(236, 3);
             P_About.Name = "P_About";
-            P_About.Size = new Size(297, 251);
+            P_About.Size = new Size(329, 214);
             P_About.TabIndex = 4;
             P_About.Visible = false;
             // 
-            // label3
+            // Lb_About
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(18, 31);
-            label3.Name = "label3";
-            label3.Size = new Size(55, 15);
-            label3.TabIndex = 0;
-            label3.Text = "這是關於";
+            Lb_About.BackColor = Color.Gray;
+            Lb_About.Font = new Font("Microsoft JhengHei UI", 15F);
+            Lb_About.ForeColor = SystemColors.ButtonHighlight;
+            Lb_About.FormattingEnabled = true;
+            Lb_About.ItemHeight = 25;
+            Lb_About.Location = new Point(60, 32);
+            Lb_About.Name = "Lb_About";
+            Lb_About.Size = new Size(663, 204);
+            Lb_About.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.BackColor = Color.Transparent;
+            panel2.Location = new Point(26, 131);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(300, 500);
+            panel2.TabIndex = 5;
             // 
             // P_Score
             // 
-            P_Score.Controls.Add(label1);
-            P_Score.Location = new Point(36, 88);
+            P_Score.AutoScroll = true;
+            P_Score.BackColor = Color.Transparent;
+            P_Score.Controls.Add(L_score_hero);
+            P_Score.Controls.Add(PB_hero);
+            P_Score.Controls.Add(Lb_Score);
+            P_Score.Location = new Point(344, 80);
             P_Score.Name = "P_Score";
-            P_Score.Size = new Size(415, 281);
+            P_Score.Size = new Size(737, 600);
             P_Score.TabIndex = 3;
             P_Score.Visible = false;
             // 
-            // panel1
+            // L_score_hero
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel1.BackColor = SystemColors.ControlDark;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1101, 48);
-            panel1.TabIndex = 1;
+            L_score_hero.AutoSize = true;
+            L_score_hero.Font = new Font("Microsoft JhengHei UI", 15F);
+            L_score_hero.Location = new Point(114, 375);
+            L_score_hero.Name = "L_score_hero";
+            L_score_hero.Size = new Size(107, 25);
+            L_score_hero.TabIndex = 7;
+            L_score_hero.Text = "使用機甲 : ";
+            // 
+            // PB_hero
+            // 
+            PB_hero.Location = new Point(261, 342);
+            PB_hero.Name = "PB_hero";
+            PB_hero.Size = new Size(250, 255);
+            PB_hero.SizeMode = PictureBoxSizeMode.StretchImage;
+            PB_hero.TabIndex = 6;
+            PB_hero.TabStop = false;
+            // 
+            // Lb_Score
+            // 
+            Lb_Score.BackColor = Color.Gray;
+            Lb_Score.Font = new Font("Microsoft JhengHei UI", 30F);
+            Lb_Score.ForeColor = SystemColors.ControlLightLight;
+            Lb_Score.FormattingEnabled = true;
+            Lb_Score.ItemHeight = 50;
+            Lb_Score.Location = new Point(60, 32);
+            Lb_Score.Name = "Lb_Score";
+            Lb_Score.Size = new Size(663, 304);
+            Lb_Score.TabIndex = 5;
             // 
             // label2
             // 
@@ -168,18 +200,18 @@
             label2.TabIndex = 0;
             label2.Text = "這是計分板";
             // 
-            // L_Score
+            // B_Score
             // 
-            L_Score.BackColor = Color.Transparent;
-            L_Score.Font = new Font("Impact", 30F);
-            L_Score.Location = new Point(43, 429);
-            L_Score.Name = "L_Score";
-            L_Score.Size = new Size(378, 109);
-            L_Score.TabIndex = 5;
-            L_Score.TabStop = false;
-            L_Score.Text = "Score";
-            L_Score.UseVisualStyleBackColor = false;
-            L_Score.Click += L_Score_Click;
+            B_Score.BackColor = Color.Transparent;
+            B_Score.Font = new Font("Impact", 30F);
+            B_Score.Location = new Point(43, 429);
+            B_Score.Name = "B_Score";
+            B_Score.Size = new Size(378, 109);
+            B_Score.TabIndex = 5;
+            B_Score.TabStop = false;
+            B_Score.Text = "Score";
+            B_Score.UseVisualStyleBackColor = false;
+            B_Score.Click += B_Score_Click;
             // 
             // Form_Menu
             // 
@@ -187,7 +219,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1584, 861);
-            Controls.Add(L_Score);
+            Controls.Add(B_Score);
             Controls.Add(P_Main);
             Controls.Add(B_Quit);
             Controls.Add(B_About);
@@ -202,9 +234,9 @@
             Paint += Form_Menu_Paint;
             P_Main.ResumeLayout(false);
             P_About.ResumeLayout(false);
-            P_About.PerformLayout();
             P_Score.ResumeLayout(false);
             P_Score.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PB_hero).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -216,14 +248,16 @@
         public Panel P_Game;
         private Button B_About;
         private Button B_Quit;
-        private Label label1;
         private Panel P_Main;
-        private Panel panel1;
-        private Button L_Score;
+        private Button B_Score;
         private Panel P_Score;
        
         private Label label2;
         private Panel P_About;
-        private Label label3;
+        private Panel panel2;
+        private PictureBox PB_hero;
+        private ListBox Lb_Score;
+        private ListBox Lb_About;
+        private Label L_score_hero;
     }
 }
