@@ -121,8 +121,17 @@
   <data name="Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\Background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Boom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\Boom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bullet1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\bullet1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bullet2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\bullet2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\click.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="em1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\em1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,10 +139,88 @@
   <data name="em2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\em2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="E_B_Tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\E-B-Tank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="E_N_Zako" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\E-N-Zako.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="E_S_Runner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\E-S-Runner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="E_S_Tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\E-S-Tank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gun01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\Gun01.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gun02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\Gun02.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gun03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\Gun03.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="hero" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\hero.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="H_Gunslinger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-Gunslinger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="H_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="H_Quick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-Quick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="H_Shocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-Shocked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="H_Sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-Sniper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="H_TimeStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\H-TimeStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Asset\Menu.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="O_Heart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\O-Heart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_E_B_Tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-E-B-Tank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_E_N_Zako" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-E-N-Zako.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_E_S_Runner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-E-S-Runner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_E_S_Tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-E-S-Tank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_Gunslinger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-Gunslinger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_Normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-Normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_Quick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-Quick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_Shocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-Shocked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_Sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-Sniper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="S_H_TimeStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\S-H-TimeStop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="動畫03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Asset\動畫03.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
