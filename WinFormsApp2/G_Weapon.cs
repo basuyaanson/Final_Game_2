@@ -49,17 +49,31 @@ namespace WinFormsApp2
         { get; set; }//持有武器速度
         public int ShotSpeed//射速
         { get; set; }
-
         public int Time
         {
             get; set;
         }
-        //移動事件
+     
+        //子彈移動
         public virtual void Move()
         {
+            //計算向量
+            if (Time == 0)
+            {
+                int dx = this.TargetX - this.x;
+                int dy = this.TargetY - this.y;
+                double length = Math.Sqrt(dx * dx + dy * dy);
 
+                this.unitX = dx / length;
+                this.unitY = dy / length;
+                this.Time = 1;
+            }
+
+            // 更新敌人的位置
+            this.x += (int)(this.Speed * this.unitX);
+            this.y += (int)(this.Speed * this.unitY);
         }
-
+        //武器數據
         public virtual void GetInfo()
         {
 
@@ -98,25 +112,7 @@ namespace WinFormsApp2
             g.DrawImage(img, this.x, this.y);
         }
 
-        //子彈移動
-        public override void Move()
-        {
-            //計算向量
-            if (Time == 0)
-            {
-                int dx = this.TargetX - this.x;
-                int dy = this.TargetY - this.y;
-                double length = Math.Sqrt(dx * dx + dy * dy);
-
-                this.unitX = dx / length;
-                this.unitY = dy / length;
-                this.Time = 1;
-            }
-
-            // 更新敌人的位置
-            this.x += (int)(this.Speed * this.unitX);
-            this.y += (int)(this.Speed * this.unitY);
-        }
+      
     }
 
     class WP_Rifle : WeaponFater
@@ -151,26 +147,6 @@ namespace WinFormsApp2
             g.DrawImage(img, this.x, this.y);
         }
 
-        //子彈移動
-        public override void Move()
-        {
-            //計算向量
-            if (Time == 0)
-            {
-                int dx = this.TargetX - this.x;
-                int dy = this.TargetY - this.y;
-                double length = Math.Sqrt(dx * dx + dy * dy);
-
-                this.unitX = dx / length;
-                this.unitY = dy / length;
-                this.Time = 1;
-            }
-
-            // 更新敌人的位置
-            this.x += (int)(this.Speed * this.unitX);
-            this.y += (int)(this.Speed * this.unitY);
-        }
-
     }   
 
     class WP_SMG : WeaponFater
@@ -198,51 +174,27 @@ namespace WinFormsApp2
                this.ShotSpeed = 150;//射速
                this.Speed = 50;//子彈移動速度
                this.MoveSpeed = 3;//玩家持有移速加成
-          
         }
-
-
-           //------------------------
-           public override void Draw(Graphics g)
-           {
-               Move();
-               g.DrawImage(img, this.x, this.y);
-           }
-
-           //子彈移動
-           public override void Move()
-           {
-               //計算向量
-               if (Time == 0)
-               {
-                   int dx = this.TargetX - this.x;
-                   int dy = this.TargetY - this.y;
-                   double length = Math.Sqrt(dx * dx + dy * dy);
-
-                   this.unitX = dx / length;
-                   this.unitY = dy / length;
-                   this.Time = 1;
-               }
-
-               // 更新敌人的位置
-               this.x += (int)(this.Speed * this.unitX);
-               this.y += (int)(this.Speed * this.unitY);
-           }
-
+        //------------------------
+        public override void Draw(Graphics g)
+        {
+            Move();
+            g.DrawImage(img, this.x, this.y);
+        }
        }
 
     class WP_Boom : WeaponFater
-       {
-           //圖片
-           private static Image img = Asset.Boom;
-           public Thread thread ;
+     {
+         //圖片
+         private static Image img = Asset.Boom;
+         public Thread thread ;
         //目標座標 發射座標 子彈移動速度
         public WP_Boom(int TargetX, int TargetY, int x, int y) : base(x, y, img)
-           {
+        {
                this.TargetX = TargetX;
                this.TargetY = TargetY;
                GetInfo();
-           }
+        }
 
            public override void GetInfo()
            {
@@ -278,7 +230,7 @@ namespace WinFormsApp2
                this.y = this.TargetY;
                 thread = new Thread(CountDown);
                 thread.Start();
-        }
+            }
             
        }
 
@@ -312,26 +264,6 @@ namespace WinFormsApp2
         {
             Move();
             g.DrawImage(img, this.x, this.y);
-        }
-
-        //子彈移動
-        public override void Move()
-        {
-            //計算向量
-            if (Time == 0)
-            {
-                int dx = this.TargetX - this.x;
-                int dy = this.TargetY - this.y;
-                double length = Math.Sqrt(dx * dx + dy * dy);
-
-                this.unitX = dx / length;
-                this.unitY = dy / length;
-                this.Time = 1;
-            }
-
-            // 更新敌人的位置
-            this.x += (int)(this.Speed * this.unitX);
-            this.y += (int)(this.Speed * this.unitY);
         }
 
     }

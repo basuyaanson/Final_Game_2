@@ -48,27 +48,9 @@ namespace WinFormsApp2
             //計時器
             TimeCount = 1;
             WaveCount = 1;
-            //
             CnaFire = true;
             //準心
             SingleObject.GetSingle().AddGameObject(new Aim(0, 0));
-            /*
-            //AllocConsole();
-           
-            GameStart.Start();
-            PlayeTime.Start();
-            Hold = false;
-            this.TimeCount = 1;
-            LevelUpSelcet();
-
-            //新增鼠標icon
-            Bitmap bitmap = (Bitmap)Bitmap.FromFile(@"..\..\..\Asset\aim.ico");
-            this.Cursor = new Cursor(bitmap.GetHicon());
-
-            //射速
-            Timer_Fire.Interval = SingleObject.GetSingle().H.shootSpeed;
-            //
-            Console.WriteLine("生成成功");*/
 
         }
 
@@ -331,6 +313,7 @@ namespace WinFormsApp2
 
         }
 
+        //遊戲結束
         public void GameOver()
         {
             P_Meun.Show();
@@ -348,6 +331,7 @@ namespace WinFormsApp2
                 "\n使用機甲" + Enum.GetName(typeof(Heroinfo.HeroName), SingleObject.GetSingle().Hero.WeaponNumber+1); 
                 ;
        
+            //將數據賦值，用於新增成績
             GetLogininfo.AddScoer(GetLogininfo.UserName,
                 SingleObject.GetSingle().Hero.Score,
                 customFormat,

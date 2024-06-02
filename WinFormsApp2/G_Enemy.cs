@@ -44,6 +44,27 @@ namespace WinFormsApp2
                 SingleObject.GetSingle().Hero.Score += this.Score;//
             }
         }
+
+        //敵人向目標移動
+        public virtual void MoveEnemy(double speed)
+        {
+            //計算向量
+            double Dx = Target.x - x;
+            double Dy = Target.y - y;
+
+            /*// 計算帶有方向的向量*/
+            double length = Math.Sqrt(Dx * Dx + Dy * Dy);
+            double UnitX = Dx / length;
+            double UnitY = Dy / length;
+
+            //靠近後就停止移動
+            if (length > 10)
+            {
+                // 更新敌人的位置
+                this.x += (int)(speed * UnitX);
+                this.y += (int)(speed * UnitY);
+            }
+        }
     }
 
     //普通敵人
@@ -90,27 +111,6 @@ namespace WinFormsApp2
         {
             MoveEnemy(this.Speed);
             g.DrawImage(Img, this.x, this.y);
-        }
-
-        //敵人向目標移動
-        public void MoveEnemy(double speed)
-        {
-            //計算向量
-            double Dx = Target.x - x;
-            double Dy = Target.y - y;
-
-            /*// 計算帶有方向的向量*/
-            double length = Math.Sqrt(Dx * Dx + Dy * Dy);
-            double UnitX = Dx / length;
-            double UnitY = Dy / length;
-
-            //靠近後就停止移動
-            if (length > 10)
-            {
-                // 更新敌人的位置
-                this.x += (int)(speed * UnitX);
-                this.y += (int)(speed * UnitY);
-            }
         }
     }
 
@@ -169,26 +169,6 @@ namespace WinFormsApp2
             g.DrawImage(Img, this.x, this.y);
         }
 
-        //敵人向目標移動
-        public void MoveEnemy(double speed)
-        {
-            //計算向量
-            double Dx = Target.x - x;
-            double Dy = Target.y - y;
-
-            /*// 計算帶有方向的向量*/
-            double length = Math.Sqrt(Dx * Dx + Dy * Dy);
-            double UnitX = Dx / length;
-            double UnitY = Dy / length;
-
-            //靠近後就停止移動
-            if (length > 10)
-            {
-                // 更新敌人的位置
-                this.x += (int)(speed * UnitX);
-                this.y += (int)(speed * UnitY);
-            }
-        }
     }
 
     //首領敵人
@@ -239,25 +219,6 @@ namespace WinFormsApp2
             g.DrawImage(Img, this.x, this.y);
         }
 
-        //敵人向目標移動
-        public void MoveEnemy(double speed)
-        {
-            //計算向量
-            double Dx = Target.x - x;
-            double Dy = Target.y - y;
-
-            /*// 計算帶有方向的向量*/
-            double length = Math.Sqrt(Dx * Dx + Dy * Dy);
-            double UnitX = Dx / length;
-            double UnitY = Dy / length;
-
-            //靠近後就停止移動
-            if (length > 10)
-            {
-                // 更新敌人的位置
-                this.x += (int)(speed * UnitX);
-                this.y += (int)(speed * UnitY);
-            }
-        }
+     
     }
 }

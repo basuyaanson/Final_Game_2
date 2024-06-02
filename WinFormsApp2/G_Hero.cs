@@ -9,22 +9,20 @@ using System.Threading.Tasks;
 namespace WinFormsApp2
 {
    
-
+    //英雄資料
     class Heroinfo
     {
-        public void scal()
-        {
-         //   H_Img[0].Width * 3;
-        }
-          
+        //英雄對應高清圖片
         public static Image[] H_Img =
         {
          Asset.S_H_Normal,Asset.S_H_Gunslinger,Asset.S_H_Quick,Asset.S_H_TimeStop,Asset.S_H_Sniper,Asset.S_H_Shocked
         };
+        //英雄名稱
         public enum HeroName
         {
             普通型, 槍俠, 快槍俠, 時停, 狙擊手, 震撼
         }
+        //興雄簡介
         public static string[] info =
         {
             "初始裝備步槍，各項數值正常，特技是投擲手榴彈，適用於新手",
@@ -37,8 +35,6 @@ namespace WinFormsApp2
         };
 
     }
-
-
 
      //玩家類
      class HeroFather : GameObject
@@ -95,19 +91,6 @@ namespace WinFormsApp2
             Console.WriteLine("武器加成成功");
         }
 
-        public virtual void UseSkill()
-        {
-        }
-
-        enum HeroTypeInfo
-        {
-            普通型各項數值正常特技是投擲手榴彈適合初學者,
-            槍俠傷害高但裝甲低特技是輪舞能夠360度射擊,
-            快槍俠,
-            時停,
-            狙擊手,
-            震撼
-        }
 
         //-----------BUFF-----------
         //隨機獲得buff
@@ -150,22 +133,17 @@ namespace WinFormsApp2
             {
                 case "0":
                     HeroSpeed += 1;
-                    Console.WriteLine("選擇0");
                     break;
                 case "1":
                     this.HP += 5;
-                    Console.WriteLine("選擇1");
                     break;
                 case "2":
                     WeaponNumber = 0;
-                    Console.WriteLine("選擇2");
                     break;
                 case "3":
                     HeroDamage += Wp.Damage *0.2 ;
-                    Console.WriteLine("選擇3");
                     break;
             }
-            Console.WriteLine("升級");
             this.Level += 1;
         }
 
@@ -173,28 +151,27 @@ namespace WinFormsApp2
         public virtual bool GameOver()
         {
             if (this.HP <= 0)
-
-            {
-               
-                return true;
-            
+            {    
+                return true;           
             }
             else
             {
                 return false;
-            }
-                
+            }         
         }
 
-        //-----------------------
         //開火
         public virtual void Fire()
         {
+            //對應生成對應武器子彈
             switch (WeaponNumber)
             {
                 case 0:
                     SingleObject.GetSingle().AddGameObject(new WP_Pistol
-                            (SingleObject.GetSingle().Aim.x, SingleObject.GetSingle().Aim.y, this.x + this.Width / 2, this.y + this.Height / 2));
+                            (SingleObject.GetSingle().Aim.x, //目標座標 x
+                            SingleObject.GetSingle().Aim.y, //目標座標 y
+                            this.x + this.Width / 2,//初始座標 x
+                            this.y + this.Height / 2));//初始座標 y
                     break;
                case 1:
                     SingleObject.GetSingle().AddGameObject(new WP_Rifle
@@ -213,11 +190,10 @@ namespace WinFormsApp2
                             (SingleObject.GetSingle().Aim.x- 100
                             , SingleObject.GetSingle().Aim.y- 100,
                             0,0));
-
                     break;
+
                 //360度發射
-                case 5:
-                   
+                case 5:              
                     for (int angle = 0; angle <= 360; angle += 15)
                     {
                         double radians = angle * Math.PI / 180;
@@ -262,13 +238,7 @@ namespace WinFormsApp2
         //圖片
         private static Image img = Asset.H_Normal;
       
-        //--------------事件
-
-        public void UseSkill()
-        {
-
-        }
-
+      
         //------------------複寫
         //繪製
        public override void Draw(Graphics g)
@@ -299,14 +269,6 @@ namespace WinFormsApp2
         //圖片
         private static Image img = Asset.H_Gunslinger;
 
-        //--------------事件
-
-        public override void UseSkill()
-        {
-
-
-        }
-
         //------------------複寫
         //繪製
         public override void Draw(Graphics g)
@@ -335,14 +297,6 @@ namespace WinFormsApp2
 
         //圖片
         private static Image img = Asset.H_Quick;
-
-        //--------------事件
-
-        public override void UseSkill()
-        {
-
-
-        }
 
         //------------------複寫
         //繪製
@@ -375,12 +329,6 @@ namespace WinFormsApp2
 
         //--------------事件
 
-        public override void UseSkill()
-        {
-
-
-        }
-
         //------------------複寫
         //繪製
         public override void Draw(Graphics g)
@@ -412,12 +360,6 @@ namespace WinFormsApp2
 
         //--------------事件
 
-        public override void UseSkill()
-        {
-
-
-        }
-
         //------------------複寫
         //繪製
         public override void Draw(Graphics g)
@@ -448,12 +390,6 @@ namespace WinFormsApp2
         private static Image img = Asset.H_Shocked;
 
         //--------------事件
-
-        public override void UseSkill()
-        {
-
-
-        }
 
         //------------------複寫
         //繪製

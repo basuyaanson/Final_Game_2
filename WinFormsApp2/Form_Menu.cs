@@ -25,10 +25,9 @@ namespace WinFormsApp2
         public bool IsUse;
         public List<Button> ListButton = new List<Button>();
 
-
         public Form_Menu()
         {
-            SingleObject.GetSingle().AddGameObject(new MenuBackground(0, 0));
+            SingleObject.GetSingle().AddGameObject(new MenuBackground(0, 0));//生成背景圖
             InitializeComponent();
          
 
@@ -41,8 +40,6 @@ namespace WinFormsApp2
 
             P_About.Size = new(1098, 730);
             P_About.Location = new(344, 80);
-
-            // SetScoer();
         }
 
         //獲得背景
@@ -55,8 +52,6 @@ namespace WinFormsApp2
         //載入form
         public void loadform(object Form)
         {
-            /*  if (this.P_Main.Controls.Count > 0)
-                  this.P_Main.Controls.RemoveAt(0);*/
             Form f = Form as Form;
             f.TopLevel = false;
             f.Dock = DockStyle.Fill;
@@ -64,7 +59,6 @@ namespace WinFormsApp2
             this.P_Game.Tag = f;
             P_Game.Show();
             f.Show();
-
         }
 
         //使用p
@@ -81,8 +75,6 @@ namespace WinFormsApp2
                 IsUse = false;
             }
         }
-
-      
 
         //---------------按鈕----------
         //開始遊戲
@@ -121,7 +113,6 @@ namespace WinFormsApp2
         //關於
         private void B_About_Click(object sender, EventArgs e)
         {
-
             SoundObject.S_Click.Play();
             Console.WriteLine(SoundObject.S_Click.ToString());
             P_MainUse();
@@ -165,31 +156,32 @@ namespace WinFormsApp2
                 switch (num)
                 {
                     case 0:
-                        //獲得文件
+                        //獲得文件路徑
                         string Json_Score = System.IO.File.ReadAllText(@".\\Score.json");//
-                        //獲得文件列表
+                        //獲得文件
                         List<J_Score> Sjson = JsonConvert.DeserializeObject<List<J_Score>>(Json_Score);
-
-                        //依照成績排序
+                        //依照成績排序(參考ChatGPT)
                         List<J_Score> sortedScores = Sjson.OrderByDescending(s => s.Score).ToList();
-
                         //新增按鈕，並以時間命名
                         for (int i = 0; i < Sjson.Count; i++)
                         {
+                            //新增按鈕
                             Button btn = new Button();
                             btn.FlatStyle = FlatStyle.Flat;
                             btn.BackColor = Color.FromArgb(100, 240, 250, 250);
                             btn.Font = new Font("Microsoft Tai Le", 15F, FontStyle.Regular, GraphicsUnit.Point);
                             btn.Text = sortedScores[i].Name + "\n成績 : " + sortedScores[i].Score + "\n存檔時間 :" + sortedScores[i].Time;
-                            btn.Name = sortedScores[i].Time;
-
                             btn.Size = new Size(250, 100);
                             btn.Location = new Point(10, i * 120);
-
+                            //以時間命名
+                            btn.Name = sortedScores[i].Time;
+                            //將按鈕添加到畫面與數組
                             c.Controls.Add(btn);
                             ListButton.Add(btn);
+                            //綁定事件
                             btn.Click += button_Click_GetScore;
                         }
+                        //新增刪除按鈕
                         for (int i = 0; i < Sjson.Count; i++)
                         {
                             Button btn = new Button();
@@ -197,10 +189,11 @@ namespace WinFormsApp2
                             btn.BackColor = Color.FromArgb(100, 240, 250, 250);
                             btn.Font = new Font("Microsoft Tai Le", 9F, FontStyle.Regular, GraphicsUnit.Point);
                             btn.Text = "刪除檔案";
-                            btn.Name = sortedScores[i].Time;
-
                             btn.Size = new Size(20, 100);
                             btn.Location = new Point(260, i * 120);
+
+                            //以時間命名
+                            btn.Name = sortedScores[i].Time;
 
                             c.Controls.Add(btn);
                             ListButton.Add(btn);
@@ -209,10 +202,10 @@ namespace WinFormsApp2
                         break;
 
                     case 1:
-                        //獲得文件
+                        //獲得文件路徑
                         string Json_About = System.IO.File.ReadAllText(@".\\About.json");
 
-                        //獲得文件列表
+                        //獲得文件
                         List<J_About> Gjson = JsonConvert.DeserializeObject<List<J_About>>(Json_About);
 
                         for (int i = 0; i < Gjson.Count; i++)
@@ -265,10 +258,11 @@ namespace WinFormsApp2
         //獲得成績
         public void button_Click_GetScore(object sender, EventArgs e)
         {
+            //獲得按下的按鈕
             Button b = sender as Button;
-            //獲得文件
+            //獲得文件路徑
             string Json_Score = System.IO.File.ReadAllText(@".\\Score.json");
-            //獲得文件清單
+            //獲得文件
             List<J_Score> Gjson = JsonConvert.DeserializeObject<List<J_Score>>(Json_Score);
             Lb_Score.Items.Clear();//清理盒子
 
@@ -293,10 +287,10 @@ namespace WinFormsApp2
         //刪除存檔
         private void button1_Click(object sender, EventArgs e)
         {
+            //獲得按下的按鈕
             Button b = sender as Button;
             //獲得文件
             string Json_Score = System.IO.File.ReadAllText(@".\\Score.json");
-
             List<J_Score> records = JsonConvert.DeserializeObject<List<J_Score>>(Json_Score);
   
             if (File.Exists(@".\\Score.json"))
@@ -309,6 +303,7 @@ namespace WinFormsApp2
             DialogResult dialogResult = MessageBox.Show("是否刪除成績", "", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                //遍歷數組，找到相同時間之數據並刪除(參考ChatGPT)
                 records.RemoveAll(r => r.Time == b.Name);
             }
             else if (dialogResult == DialogResult.No)
@@ -316,7 +311,7 @@ namespace WinFormsApp2
                 //do something else
             }
             
-
+            //寫入數據並更新
             string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
             File.WriteAllText("Score.json", updatedJson);
             B_Score_Click(sender, e);
