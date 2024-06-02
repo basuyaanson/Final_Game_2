@@ -121,12 +121,6 @@ namespace WinFormsApp2
             {
                 BackG.Remove(go as Background);
             }
-
-            /* else if (go is EnemyFather)
-             {
-                  EnemyBulletList.Remove(go as EnemyBullet);
-             }*/
-
         }
 
         //碰撞體
@@ -135,29 +129,25 @@ namespace WinFormsApp2
           //檢查 敵人 
             for (int i = 0; i < EnemyList.Count; i++)
             {
-                 //與 玩家碰撞
-               if (EnemyList[i].GetRectangle().IntersectsWith(Hero.GetRectangle()))
+                //敵人 與 玩家碰撞
+                if (EnemyList[i].GetRectangle().IntersectsWith(Hero.GetRectangle()))
                  {
-                        Hero.HP -= EnemyList[i].Damage;//命中扣血
-                      
-                    bool gameover =  Hero.GameOver();//檢測生命值
-                    if (gameover==true)
-                    {
-                      
-                    }
+                    Hero.HP -= EnemyList[i].Damage;//玩家扣血
                     SingleObject.GetSingle().RemoveGameObject(EnemyList[i]);//刪除敵人
                     break;
                  }
-                //與 玩家子彈碰撞
+                //敵人 與 玩家子彈碰撞
                 for (int j = 0; j < HeroBulletList.Count; j++)
                 {
                     if (EnemyList[i].GetRectangle().IntersectsWith(HeroBulletList[j].GetRectangle()))//如果子彈的矩形與目標相交
                     {
-                        EnemyList[i].HP -= Hero.Damage;
-                        double Dx = Hero.x - EnemyList[i]. x;
-                        double Dy = Hero.y - EnemyList[i]. y;
+                        EnemyList[i].HP -= Hero.Damage;//敵人扣写
 
-                        /*// 計算帶有方向的向量*/
+
+
+                        //擊退敵人效果
+                        double Dx = Hero.x - EnemyList[i].x;
+                        double Dy = Hero.y - EnemyList[i].y;
                         double length = Math.Sqrt(Dx * Dx + Dy * Dy);
                         double UnitX = Dx / length;
                         double UnitY = Dy / length;
@@ -172,7 +162,8 @@ namespace WinFormsApp2
                         {
                             SingleObject.GetSingle().RemoveGameObject(HeroBulletList[j]);//刪除子彈
                         }
-                        EnemyList[i].IsDead();//檢測生命值
+
+                        EnemyList[i].IsDead();//檢測敵人生命值
                        
                         break;
                     }

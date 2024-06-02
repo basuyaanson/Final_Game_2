@@ -14,11 +14,10 @@ namespace WinFormsApp2
 
         public static J_Score score;
 
-        // records.RemoveAll(r => r.Time == "00");
         //新增成績
         public static void AddScoer(string name, int score, string time, int wave, int leve, int hero)
         {
-            //獲得文件
+            //獲得文件路徑
             string Json_Score = System.IO.File.ReadAllText(@".\\Score.json");
             List<J_Score> records;
 
@@ -32,7 +31,7 @@ namespace WinFormsApp2
                 records = new List<J_Score>();
             }
 
-            // 添加新数据
+            //添加新数据
             records.Add(new J_Score
             {
                 Name = name,
@@ -43,11 +42,9 @@ namespace WinFormsApp2
                 Hero = hero
             });
 
-            // 将更新后的数据写回JSON文件
+            //将更新后的数据写回JSON文件
             string updatedJson = JsonConvert.SerializeObject(records, Formatting.Indented);
             File.WriteAllText("Score.json", updatedJson);
-            //
-
         }
     }
 }

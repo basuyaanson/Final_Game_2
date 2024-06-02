@@ -66,7 +66,6 @@ namespace WinFormsApp2
         public int Score
         { get; set; }
 
-
         //繪製事件
         public virtual void Draw(Graphics g)
         {
